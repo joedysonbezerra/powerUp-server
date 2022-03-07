@@ -1,0 +1,4 @@
+node_modules
+src/infra/db/data/mellow.sqlite
+dist
+src/infra/mail/templates
