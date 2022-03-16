@@ -1,14 +1,8 @@
-import { Request, Response } from "express";
-import { Controller } from "../../../application/contracts/controller/IController";
-import {
-  IHttpRequest,
-  IHttpResponse,
-} from "../../../application/contracts/http/IHttp";
+import { Request, Response } from 'express';
+import { IController } from '../../../domain/contracts/http/IController';
+import { IHttpRequest } from '../../../domain/contracts/http/IHttp';
 
-export const adapterRoute = (
-  controller: Controller<IHttpRequest, IHttpResponse>,
-  method: string
-) => {
+export const adapterRoute = (controller: IController, method: string) => {
   return async (request: Request, response: Response) => {
     Object.assign(request.body, request.params);
 

@@ -1,13 +1,14 @@
-import "reflect-metadata";
-import "dotenv/config";
-import express from "express";
-import setupRoutes from "./routes";
+import 'reflect-metadata';
+import 'dotenv/config';
+import '../di';
+import express from 'express';
+import setupRoutes from './routes';
 
 import {
   bodyParser,
   crossOriginResourceSharing,
   staticFile,
-} from "./middlewares";
+} from './middlewares';
 
 class App {
   readonly server: express.Application;

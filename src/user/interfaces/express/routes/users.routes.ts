@@ -1,7 +1,10 @@
-import { Router } from "express";
-import { adapterRoute } from "../../../../shared/interfaces/express/adapters/expressRouteAdapter";
-import userFactory from "../../../userFactory";
+import { Router } from 'express';
+import { container } from 'tsyringe';
+import { adapterRoute } from '../../../../shared/interfaces/express/adapters/expressRouteAdapter';
+import { UserController } from '../../http/controller/UserController';
 
 export default (router: Router): void => {
-  router.post("/users", adapterRoute(userFactory(), "store"));
+  const userController = container.resolve(UserController);
+
+  router.post('/users', adapterRoute(userController, 'store'));
 };

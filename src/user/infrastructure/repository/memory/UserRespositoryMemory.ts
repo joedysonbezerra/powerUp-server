@@ -1,5 +1,5 @@
-import { ICreateUserRepository } from "../../../application/contracts/infrastructure/repositories/ICreateUserRepository";
-import User from "../../../domain/entities/user";
+import { ICreateUserRepository } from '../../../domain/contracts/infrastructure/repositories/ICreateUserRepository';
+import User from '../../../domain/entities/user';
 
 export class UserRespositoryMemory implements ICreateUserRepository {
   async createUser({ name, email, password }: User): Promise<User> {
