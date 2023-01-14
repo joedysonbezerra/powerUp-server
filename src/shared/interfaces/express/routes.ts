@@ -11,6 +11,7 @@ export default (app: Application): void => {
       Status: 'Online',
     });
   });
+
   const routesDir = 'src/**/interfaces/express/routes/**routes.ts';
   fg.sync(routesDir).map(async (file: string) => {
     (await import(`../../../../${file}`)).default(router);

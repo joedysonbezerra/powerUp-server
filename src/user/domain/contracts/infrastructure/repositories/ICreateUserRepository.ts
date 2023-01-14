@@ -1,5 +1,5 @@
-import User from '../../../entities/user';
+import { User } from '../../../entities/user';
 
 export interface ICreateUserRepository {
-  createUser: ({ name, email, password }: User) => Promise<User>;
+  createUser: (input: User) => Promise<User>;
 }

@@ -1,14 +1,7 @@
-import 'reflect-metadata';
-import 'dotenv/config';
-import '../di';
 import express from 'express';
 import setupRoutes from './routes';
 
-import {
-  bodyParser,
-  crossOriginResourceSharing,
-  staticFile,
-} from './middlewares';
+import { bodyParser, crossOriginResourceSharing } from './middlewares';
 
 class App {
   readonly server: express.Application;
@@ -22,7 +15,6 @@ class App {
   setupMiddlewares() {
     this.server.use(bodyParser);
     this.server.use(crossOriginResourceSharing);
-    this.server.use(staticFile.endpoint, express.static(staticFile.path));
   }
 }
 

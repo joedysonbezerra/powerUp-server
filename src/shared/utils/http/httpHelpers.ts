@@ -1,4 +1,4 @@
-import { IHttpResponse } from '../../../domain/contracts/http/IHttp';
+import { IHttpResponse } from '../../domain/entities/IHttp';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 export const success = (body: any): IHttpResponse => ({
@@ -6,14 +6,14 @@ export const success = (body: any): IHttpResponse => ({
   body,
 });
 
-export const badRequest = (error: Error): IHttpResponse => ({
+export const badRequest = (info: any): IHttpResponse => ({
   statusCode: StatusCodes.BAD_REQUEST,
-  body: error,
+  body: info,
 });
 
-export const forbidden = (error: Error): IHttpResponse => ({
+export const forbidden = (info: any): IHttpResponse => ({
   statusCode: StatusCodes.FORBIDDEN,
-  body: error,
+  body: info,
 });
 
 export const serverError = (): IHttpResponse => ({

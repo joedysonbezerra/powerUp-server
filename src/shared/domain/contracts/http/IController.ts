@@ -1,8 +1,8 @@
-import { notImplemented } from '../../../interfaces/utils/http/httpHelpers';
-import { IHttpRequest, IHttpResponse } from './IHttp';
+import { notImplemented } from '../../../utils/http/httpHelpers';
+import { IHttpRequest, IHttpResponse } from '../../entities/IHttp';
 
 export abstract class IController {
-  async handle(
+  async proxy(
     method: string,
     httpRequest: IHttpRequest
   ): Promise<IHttpResponse> {

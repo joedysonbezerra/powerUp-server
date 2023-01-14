@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { IController } from '../../../domain/contracts/http/IController';
-import { IHttpRequest } from '../../../domain/contracts/http/IHttp';
+import { IHttpRequest } from '../../../domain/entities/IHttp';
 
 export const adapterRoute = (controller: IController, method: string) => {
   return async (request: Request, response: Response) => {
@@ -10,7 +10,8 @@ export const adapterRoute = (controller: IController, method: string) => {
       body: request.body,
       query: request.query,
     };
-    const httpResponse = await controller.handle(method, httpRequest);
+
+    const httpResponse = await controller.proxy(method, httpRequest);
 
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
       response.status(httpResponse.statusCode).json(httpResponse.body);
@@ -18,7 +19,7 @@ export const adapterRoute = (controller: IController, method: string) => {
       response.status(httpResponse.statusCode).redirect(httpResponse.body);
     } else {
       response.status(httpResponse.statusCode).json({
-        error: httpResponse.body.message,
+        error: httpResponse.body,
       });
     }
   };

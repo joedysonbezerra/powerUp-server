@@ -3,11 +3,13 @@ import { IController } from '../../../../shared/domain/contracts/http/IControlle
 import {
   IHttpRequest,
   IHttpResponse,
-} from '../../../../shared/domain/contracts/http/IHttp';
+} from '../../../../shared/domain/entities/IHttp';
+import { ApplicationEvents } from '../../../../shared/domain/enums/ApplicationEvents';
 import {
+  badRequest,
   serverError,
   success,
-} from '../../../../shared/interfaces/utils/http/httpHelpers';
+} from '../../../../shared/utils/http/httpHelpers';
 import { ICreateUserUseCase } from '../../../domain/contracts/usecases/ICreateUserUseCase';
 
 @injectable()
@@ -21,15 +23,20 @@ export class UserController extends IController {
 
   async store(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
-      const { name, email, password } = httpRequest.body;
+      if (httpRequest.body?.id) {
+        return badRequest('id is not allowed');
+      }
 
-      const user = await this.createUser.execute({
-        name,
-        email,
-        password,
-      });
+      const result = await this.createUser.execute(httpRequest.body);
 
-      return success(user);
+      switch (result.event) {
+        case ApplicationEvents.SUCCESS:
+          return success(result.message);
+        case ApplicationEvents.INVALID:
+          return badRequest(result.message);
+        default:
+          return serverError();
+      }
     } catch (error) {
       return serverError();
     }
